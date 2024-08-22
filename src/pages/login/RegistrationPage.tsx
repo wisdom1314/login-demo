@@ -3,12 +3,18 @@ import React from 'react';
 import { Button, Form, Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '../../routes/route';
+import axios from 'axios';
 
 const RegistrationPage: React.FC = () => {
   const navigate = useNavigate();
 
-  const onFinish = (values: any) => {
-    console.log('注册成功:', values);
+  const onFinish = async (values: any) => {
+    try {
+      const response = await axios.post('/api/register', values);
+      console.log('Login Success:', response.data);
+    } catch (error) {
+      console.error('Login Failed:', error);
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
